@@ -14,11 +14,11 @@ namespace M223PunchclockDotnet.Model {
         public DbSet<Entry> Entries {get; set;}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder){
-            modelBuilder.Entity<Entry>().ToTable("Entry");
+            modelBuilder.Entity<Entry>().ToTable("entry");
         }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-                => optionsBuilder.UseNpgsql("Host=db;Database=postgres;Username=postgres;Password=postgres");
+                => optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=postgres;Ssl Mode=Disable;");
     }
 }

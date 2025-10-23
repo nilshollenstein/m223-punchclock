@@ -27,10 +27,26 @@ namespace M223PunchclockDotnet.Controllers
         [HttpPost()]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType<Entry>(StatusCodes.Status201Created)]
-        public async Task<ActionResult<Entry>> AddEntry(Entry entry){
+        public async Task<ActionResult<Entry>> AddEntry([FromBody] Entry entry){
             var newElement = await _entryService.AddEntry(entry);
 
             return CreatedAtAction(nameof(Get), new{id = entry.Id}, entry);
+        }
+
+        [HttpDelete()]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType<Entry>(StatusCodes.Status200OK)]
+        public async Task<ActionResult<Entry>> DeleteEntry([FromBody] Entry entry) {
+            var newElement = await _entryService.DeleteEntry(entry);
+            return Ok(newElement) ;
+        } 
+        
+        [HttpPut()]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType<Entry>(StatusCodes.Status200OK)]
+        public async Task<ActionResult<Entry>> UpdateEntry([FromBody] Entry entry) {
+            var newElement = await _entryService.UpdateEntry(entry);
+            return Ok(newElement) ;
         }
 
 
