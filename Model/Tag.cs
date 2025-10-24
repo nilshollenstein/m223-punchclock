@@ -9,5 +9,5 @@ public partial class Tag
 
     public string Title { get; set; } = null!;
 
-    public virtual ICollection<TagEntry> TagEntries { get; set; } = new List<TagEntry>();
+    public virtual ICollection<Entry> Entries { get; set; } = new List<Entry>();
 }

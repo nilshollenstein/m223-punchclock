@@ -16,5 +16,5 @@ public partial class Entry
 
     public virtual Category? Category { get; set; }
 
-    public virtual ICollection<TagEntry> TagEntries { get; set; } = new List<TagEntry>();
+    public virtual ICollection<Tag> Tags { get; set; } = new List<Tag>();
 }
