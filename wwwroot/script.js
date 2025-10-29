@@ -26,6 +26,24 @@ const createEntry = (e) => {
     });
 };
 
+const deleteEntry = (id) => {
+
+    fetch(`${URL}/entry/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    }).then((result) => {
+        if (result.ok) {
+            entries = entries.filter(entry => entry.id !== id)
+            renderEntries()
+        }
+        else {
+            console.error('Failed to delete entry');
+        }
+    });
+};
+
 const indexEntries = () => {
     fetch(`${URL}/entry`, {
         method: 'GET'
@@ -52,11 +70,20 @@ const renderEntries = () => {
         row.appendChild(createCell(entry.id));
         row.appendChild(createCell(new Date(entry.checkIn).toLocaleString()));
         row.appendChild(createCell(new Date(entry.checkOut).toLocaleString()));
+
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = 'Delete';
+        deleteButton.addEventListener('click', () => deleteEntry(entry.id));
+
+        const deleteCell = document.createElement('td');
+        deleteCell.appendChild(deleteButton);
+        row.appendChild(deleteCell);
+
         display.appendChild(row);
     });
 };
 
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function () {
     const createEntryForm = document.querySelector('#createEntryForm');
     createEntryForm.addEventListener('submit', createEntry);
     indexEntries();

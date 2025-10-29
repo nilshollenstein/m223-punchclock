@@ -44,14 +44,20 @@ namespace M223PunchclockDotnet.Controllers
             return CreatedAtAction(nameof(Get), new{id = entry.Id}, entry);
         }
 
-        [HttpDelete()]
-        [Consumes(MediaTypeNames.Application.Json)]
+        [HttpDelete("{id}")]
         [ProducesResponseType<Entry>(StatusCodes.Status200OK)]
-        public async Task<ActionResult<Entry>> DeleteEntry([FromBody] Entry entry) {
-            var deletedEntry = await _entryService.DeleteEntry(entry);
-            return Ok(deletedEntry) ;
-        } 
-        
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<Entry>> DeleteEntry(int id)
+        {
+            var deletedEntry = await _entryService.DeleteEntry(id);
+            if (deletedEntry == null)
+            {
+                return NotFound();
+            }
+            return Ok(deletedEntry);
+        }
+
+
         [HttpPut()]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType<Entry>(StatusCodes.Status200OK)]
