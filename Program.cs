@@ -1,13 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using M223PunchclockDotnet.Service;
 using M223PunchclockDotnet.Model;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
-    
+builder.Services.AddControllers().AddJsonOptions(options => { options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; });
+
 builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=postgres;Ssl Mode=Disable;"));
 
@@ -48,7 +49,7 @@ if (app.Environment.IsDevelopment())
     using (var scope = app.Services.CreateScope())
     {
         var testDataService = scope.ServiceProvider.GetRequiredService<IDatabaseSeederService>();
-        await testDataService.SeedDb(); 
+        await testDataService.SeedDb();
     }
 }
 
