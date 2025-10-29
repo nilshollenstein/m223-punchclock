@@ -41,8 +41,8 @@ namespace M223PunchclockDotnet.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, Category category)
         {
-            var success = await _categoryService.UpdateCategoryAsync(id, category);
-            if (!success)
+            var isUpdated = await _categoryService.UpdateCategoryAsync(id, category);
+            if (!isUpdated)
                 return NotFound();
             return NoContent();
         }
@@ -50,8 +50,8 @@ namespace M223PunchclockDotnet.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var success = await _categoryService.DeleteCategoryAsync(id);
-            if (!success)
+            var isDeleted = await _categoryService.DeleteCategoryAsync(id);
+            if (!isDeleted)
                 return NotFound();
             return NoContent();
         }
