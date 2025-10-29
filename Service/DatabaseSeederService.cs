@@ -4,16 +4,16 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace M223PunchclockDotnet.Service
 {
-    public class TestDataService
+    public class DatabaseSeederService
     {
         private readonly DatabaseContext _databaseContext;
 
-        public TestDataService(DatabaseContext databaseContext)
+        public DatabaseSeederService(DatabaseContext databaseContext)
         {
             _databaseContext = databaseContext;
         }
 
-        public async Task FillDb()
+        public async Task SeedDb()
         {
             if (_databaseContext.Entries.Any() || _databaseContext.Categories.Any())
                 return;

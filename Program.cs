@@ -18,7 +18,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<EntryService, EntryService>();
 builder.Services.AddScoped<CategoryService, CategoryService>();
-builder.Services.AddScoped<TestDataService, TestDataService>();
+builder.Services.AddScoped<DatabaseSeederService, DatabaseSeederService>();
 builder.Services.AddScoped<TagService, TagService>();
 
 var app = builder.Build();
@@ -35,8 +35,8 @@ if (app.Environment.IsDevelopment())
 
     using (var scope = app.Services.CreateScope())
     {
-        var testDataService = scope.ServiceProvider.GetRequiredService<TestDataService>();
-        await testDataService.FillDb(); 
+        var testDataService = scope.ServiceProvider.GetRequiredService<DatabaseSeederService>();
+        await testDataService.SeedDb(); 
     }
 }
 
