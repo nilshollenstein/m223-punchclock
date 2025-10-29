@@ -3,11 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace M223PunchclockDotnet.Service
 {
-    public class EntryService
+    public class EntryService : IEntryService
     {
-        private DatabaseContext _databaseContext; 
+        private DatabaseContext _databaseContext;
 
-        public EntryService(DatabaseContext databaseContext){
+        public EntryService(DatabaseContext databaseContext)
+        {
             _databaseContext = databaseContext;
         }
         public Task<List<Entry>> FindAll()
@@ -33,7 +34,7 @@ namespace M223PunchclockDotnet.Service
             await _databaseContext.SaveChangesAsync();
             return deleted.Entity;
         }
-        
+
         public async Task<Entry> UpdateEntry(Entry entry)
         {
             var updated = _databaseContext.Entries.Update(entry);

@@ -8,9 +8,9 @@ namespace M223PunchclockDotnet.Controllers
     [Route("[controller]")]
     public class TagController :ControllerBase
     {
-        private TagService _tagService;
+        private ITagService _tagService;
         
-        public TagController(TagService tagService)
+        public TagController(ITagService tagService)
         {
             _tagService = tagService;
         }

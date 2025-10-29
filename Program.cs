@@ -16,14 +16,26 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddScoped<EntryService, EntryService>();
-builder.Services.AddScoped<CategoryService, CategoryService>();
-builder.Services.AddScoped<DatabaseSeederService, DatabaseSeederService>();
-builder.Services.AddScoped<TagService, TagService>();
+builder.Services.AddScoped<IEntryService, EntryService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IDatabaseSeederService, DatabaseSeederService>();
+builder.Services.AddScoped<ITagService, TagService>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<DatabaseContext>();
+    context.Database.EnsureCreated();
+    // DbInitializer.Initialize(context);
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -35,19 +47,9 @@ if (app.Environment.IsDevelopment())
 
     using (var scope = app.Services.CreateScope())
     {
-        var testDataService = scope.ServiceProvider.GetRequiredService<DatabaseSeederService>();
+        var testDataService = scope.ServiceProvider.GetRequiredService<IDatabaseSeederService>();
         await testDataService.SeedDb(); 
     }
-}
-
-
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-
-    var context = services.GetRequiredService<DatabaseContext>();
-    context.Database.EnsureCreated();
-    // DbInitializer.Initialize(context);
 }
 
 app.UseDefaultFiles();

@@ -4,7 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace M223PunchclockDotnet.Service
 {
-    public class DatabaseSeederService
+    public class DatabaseSeederService : IDatabaseSeederService
     {
         private readonly DatabaseContext _databaseContext;
 

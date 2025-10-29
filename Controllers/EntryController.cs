@@ -9,9 +9,9 @@ namespace M223PunchclockDotnet.Controllers
     [Route("entry")]
     public class EntryController : ControllerBase
     {
-        private readonly EntryService _entryService;
+        private readonly IEntryService _entryService;
 
-        public EntryController(EntryService entryService)
+        public EntryController(IEntryService entryService)
         {
             _entryService = entryService;
         }

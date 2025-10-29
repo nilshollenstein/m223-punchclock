@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace M223PunchclockDotnet.Service
 {
-    public class TagService
+    public class TagService : ITagService
     {
         private DatabaseContext _databaseContext;
 
-        public TagService(DatabaseContext databaseContext) 
+        public TagService(DatabaseContext databaseContext)
         {
             _databaseContext = databaseContext;
         }

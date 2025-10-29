@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace M223PunchclockDotnet.Service
 {
-    public class CategoryService
+    public class CategoryService : ICategoryService
     {
         private readonly DatabaseContext _databaseContext;
 
