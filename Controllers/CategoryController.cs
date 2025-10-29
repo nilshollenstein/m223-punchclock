@@ -9,7 +9,6 @@ namespace M223PunchclockDotnet.Controllers
     [Route("[controller]")]
     public class CategoryController : ControllerBase
     {
-
         private readonly CategoryService _categoryService;
 
         public CategoryController(CategoryService categoryService)
@@ -18,17 +17,43 @@ namespace M223PunchclockDotnet.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType<List<Category>>(StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<Category>>> GetCategories()
+        public async Task<ActionResult<IEnumerable<Category>>> GetAll()
         {
-            var categorys =  await _categoryService.GetCategories();
-            return Ok(categorys);
-        } 
-        
-        [HttpGet]
-        public async Task<ActionResult<List<Category>>> PostCategory()
+            return Ok(await _categoryService.GetCategoriesAsync());
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Category>> GetById(int id)
         {
-            return await _categoryService.GetCategories();
+            var category = await _categoryService.GetCategoryByIdAsync(id);
+            if (category == null)
+                return NotFound();
+            return Ok(category);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Category>> Create(Category category)
+        {
+            var created = await _categoryService.AddCategoryAsync(category);
+            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, Category category)
+        {
+            var success = await _categoryService.UpdateCategoryAsync(id, category);
+            if (!success)
+                return NotFound();
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var success = await _categoryService.DeleteCategoryAsync(id);
+            if (!success)
+                return NotFound();
+            return NoContent();
         }
     }
 }
