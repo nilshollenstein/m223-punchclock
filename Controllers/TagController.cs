@@ -16,12 +16,15 @@ namespace M223PunchclockDotnet.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType<IEnumerable<Tag>>(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Category>>> GetAll()
         {
             return Ok(await _tagService.GetTagsAsync());
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType<Tag>(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Category>> GetById(int id)
         {
             var category = await _tagService.GetTagByIdAsync(id);
@@ -31,6 +34,8 @@ namespace M223PunchclockDotnet.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType<Tag>(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Category>> Create(Tag tag)
         {
             var created = await _tagService.AddTagAsync(tag);
@@ -38,6 +43,8 @@ namespace M223PunchclockDotnet.Controllers
         }
 
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update(int id, Tag tag)
         {
             var isUpdated = await _tagService.UpdateTagAsync(id, tag);
@@ -47,6 +54,8 @@ namespace M223PunchclockDotnet.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(int id)
         {
             var isDeleted = await _tagService.DeleteTagById(id);

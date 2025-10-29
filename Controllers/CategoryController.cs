@@ -17,6 +17,7 @@ namespace M223PunchclockDotnet.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType<Category>(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Category>>> GetAll()
         {
             return Ok(await _categoryService.GetCategoriesAsync());
@@ -32,6 +33,8 @@ namespace M223PunchclockDotnet.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType<Category>(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Category>> Create(Category category)
         {
             var created = await _categoryService.AddCategoryAsync(category);
@@ -39,6 +42,8 @@ namespace M223PunchclockDotnet.Controllers
         }
 
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update(int id, Category category)
         {
             var isUpdated = await _categoryService.UpdateCategoryAsync(id, category);
@@ -48,6 +53,8 @@ namespace M223PunchclockDotnet.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(int id)
         {
             var isDeleted = await _categoryService.DeleteCategoryAsync(id);
