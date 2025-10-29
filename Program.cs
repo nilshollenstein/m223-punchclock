@@ -18,6 +18,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<EntryService, EntryService>();
 builder.Services.AddScoped<CategoryService, CategoryService>();
+builder.Services.AddScoped<TestDataService, TestDataService>();
 
 var app = builder.Build();
 
@@ -30,6 +31,12 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
         options.RoutePrefix = "swagger";
     });
+
+    using (var scope = app.Services.CreateScope())
+    {
+        var testDataService = scope.ServiceProvider.GetRequiredService<TestDataService>();
+        await testDataService.FillDb(); 
+    }
 }
 
 
