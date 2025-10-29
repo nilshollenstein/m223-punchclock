@@ -53,24 +53,29 @@ namespace M223PunchclockDotnet.Service
                 {
                     CheckIn = DateTime.UtcNow,
                     CheckOut = DateTime.UtcNow.AddHours(4),
-                    Category = categories.First(c => c.Title == "Development")
+                    Category = categories.First(c => c.Title == "Development"),
+                    Description = "API created"
                 },
                 new Entry
                 {
                     CheckIn = DateTime.UtcNow.AddDays(-1),
                     CheckOut = DateTime.UtcNow.AddDays(-1).AddHours(3),
-                    Category = categories.First(c => c.Title == "Meeting")
+                    Category = categories.First(c => c.Title == "Meeting"),
+                    Description = "Talked about API"
                 },
                 new Entry
                 {
                     CheckIn = DateTime.UtcNow.AddDays(-2),
                     CheckOut = DateTime.UtcNow.AddDays(-2).AddHours(6),
-                    Category = categories.First(c => c.Title == "Testing")
+                    Category = categories.First(c => c.Title == "Testing"),
+                    Description = "Talked about API"
+
                 },new Entry
                 {
                     CheckIn = DateTime.UtcNow.AddDays(+7),
                     CheckOut = DateTime.UtcNow.AddDays(+7).AddHours(6),
-                    Category = categories.First(c => c.Title == "Testing")
+                    Category = categories.First(c => c.Title == "Testing"),
+                    Description = "Talked about API"
                 }
             };
 

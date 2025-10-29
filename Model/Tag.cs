@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace M223PunchclockDotnet.Model;
 
-public partial class Tag
+public class Tag
 {
     public int Id { get; set; }
 

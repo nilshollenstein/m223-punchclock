@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace M223PunchclockDotnet.Model;
 
-public partial class Category
+public class Category
 {
     [Key]
     public int Id { get; set; }
