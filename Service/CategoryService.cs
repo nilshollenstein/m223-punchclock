@@ -35,7 +35,10 @@ namespace M223PunchclockDotnet.Service
             if (existing == null)
                 return false;
 
-            existing.Title = updatedCategory.Title;
+            _databaseContext.Entry(existing).CurrentValues.SetValues(updatedCategory);
+
+            existing.Id = id;
+
             await _databaseContext.SaveChangesAsync();
             return true;
         }
